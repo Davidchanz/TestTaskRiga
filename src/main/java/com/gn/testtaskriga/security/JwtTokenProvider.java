@@ -1,7 +1,7 @@
 package com.gn.testtaskriga.security;
 
 import com.gn.testtaskriga.exception.conflict.InvalidTokenRequestException;
-import com.gn.testtaskriga.model.CustomUserDetails;
+import com.gn.testtaskriga.model.user.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;

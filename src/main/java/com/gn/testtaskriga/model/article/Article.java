@@ -5,18 +5,25 @@
  * Time:11:27 AM
  */
 
-package com.gn.testtaskriga.model;
+package com.gn.testtaskriga.model.article;
 
+import com.gn.testtaskriga.model.user.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "ARTICLE")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

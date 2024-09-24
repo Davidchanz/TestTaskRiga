@@ -1,8 +1,8 @@
 package com.gn.testtaskriga.service.user.impl;
 
 import com.gn.testtaskriga.exception.auth.UserFoundException;
-import com.gn.testtaskriga.model.CustomUserDetails;
-import com.gn.testtaskriga.model.User;
+import com.gn.testtaskriga.model.user.CustomUserDetails;
+import com.gn.testtaskriga.model.user.User;
 import com.gn.testtaskriga.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

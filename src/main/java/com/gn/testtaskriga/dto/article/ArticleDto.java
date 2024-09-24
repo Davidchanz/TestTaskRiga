@@ -7,17 +7,13 @@
 
 package com.gn.testtaskriga.dto.article;
 
-import com.gn.testtaskriga.model.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @Getter
@@ -34,7 +30,7 @@ public class ArticleDto {
     @NotBlank
     private String author;
 
-    @NotBlank
+    @NotNull
     private ZonedDateTime date;
 
 }

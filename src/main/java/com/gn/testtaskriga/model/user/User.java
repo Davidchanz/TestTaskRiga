@@ -1,4 +1,4 @@
-package com.gn.testtaskriga.model;
+package com.gn.testtaskriga.model.user;
 
 import jakarta.persistence.*;
 import lombok.Getter;

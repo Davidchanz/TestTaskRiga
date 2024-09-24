@@ -7,10 +7,10 @@
 
 package com.gn.testtaskriga.service.article.impl;
 
-import com.gn.testtaskriga.model.Article;
+import com.gn.testtaskriga.model.article.Article;
 import com.gn.testtaskriga.repository.article.ArticleRepository;
 import com.gn.testtaskriga.service.article.ArticleService;
-import lombok.RequiredArgsConstructor;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,14 @@ public class ArticleServiceDBImpl implements ArticleService {
     private ArticleRepository articleRepository;
 
     @Override
+    @Transactional
     public List<Article> listArticles() {
         return articleRepository.findAll();
+    }
+
+    @Override
+    @Transactional
+    public void createArticle(Article article) {
+        articleRepository.save(article);
     }
 }

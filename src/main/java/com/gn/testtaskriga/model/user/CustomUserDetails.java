@@ -1,4 +1,4 @@
-package com.gn.testtaskriga.model;
+package com.gn.testtaskriga.model.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

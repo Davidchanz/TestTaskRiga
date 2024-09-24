@@ -1,7 +1,7 @@
 package com.gn.testtaskriga.service.user.impl;
 
 import com.gn.testtaskriga.exception.exist.UserAlreadyExistException;
-import com.gn.testtaskriga.model.User;
+import com.gn.testtaskriga.model.user.User;
 import com.gn.testtaskriga.repository.user.UserRepository;
 import com.gn.testtaskriga.service.user.UserService;
 import jakarta.transaction.Transactional;
