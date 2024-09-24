@@ -1,8 +1,9 @@
-package com.gn.testtaskriga.service.auth;
+package com.gn.testtaskriga.service.auth.impl;
 
 import com.gn.testtaskriga.dto.auth.LoginDto;
 import com.gn.testtaskriga.model.user.CustomUserDetails;
 import com.gn.testtaskriga.security.JwtTokenProvider;
+import com.gn.testtaskriga.service.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private AuthenticationManager authenticationManager;

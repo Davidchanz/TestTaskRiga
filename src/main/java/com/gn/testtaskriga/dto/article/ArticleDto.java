@@ -31,6 +31,6 @@ public class ArticleDto {
     private String author;
 
     @NotNull
-    private ZonedDateTime date;
+    private ZonedDateTime publishedDate;
 
 }

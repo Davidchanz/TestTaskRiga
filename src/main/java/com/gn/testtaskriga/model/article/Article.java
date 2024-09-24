@@ -9,10 +9,7 @@ package com.gn.testtaskriga.model.article;
 
 import com.gn.testtaskriga.model.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,6 +37,6 @@ public class Article {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @Column(nullable = false)
-    private ZonedDateTime date;
+    @Column(nullable = false, name = "published_date")
+    private ZonedDateTime publishedDate;
 }
