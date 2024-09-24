@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    @Query("SELECT new com.gn.testtaskriga.dto.article.ArticleCount(a.publishedDate, COUNT(a))" +
+    @Query("SELECT new com.gn.testtaskriga.dto.article.ArticleCount(CAST(a.publishedDate as LocalDate) , COUNT(a))" +
             " FROM Article a WHERE DAY(CURRENT_DATE()) - DAY(a.publishedDate) <= 7 AND" +
             " DAY(CURRENT_DATE()) - DAY(a.publishedDate) >= 0" +
-            " GROUP BY a.publishedDate ORDER BY a.publishedDate")
+            " GROUP BY CAST(a.publishedDate as DATE) ORDER BY CAST(a.publishedDate as DATE)")
     List<ArticleCount> findDailyCountByLastWeek();
 }

@@ -44,7 +44,6 @@ public class ArticleController {
     @PostMapping
     public ResponseEntity<String> createArticle(@RequestBody @Valid ArticleDto articleDto){
         Article article = articleMapper.articleDtoToArticle(articleDto);
-        System.out.println(article);
         articleService.createArticle(article);
         return ResponseEntity.ok("Article was created");
     }

@@ -11,8 +11,6 @@ import com.gn.testtaskriga.model.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @Getter
