@@ -55,29 +55,4 @@ public class AuthController {
 
         return ResponseEntity.ok(token);
     }
-
-    @PostMapping("/login/admin")
-    public ResponseEntity<TokenDto> loginCMS(@RequestBody LoginDto loginRequest) {
-        Authentication authentication = authService.authenticateUser(loginRequest)
-                .orElseThrow(() -> new UserLoginException("Couldn't login user [" + loginRequest + "]"));
-
-        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        boolean hasAuthority = false;
-        for (GrantedAuthority authority : customUserDetails.getAuthorities()) {
-            if (authority.getAuthority().equals("ADMIN")) {
-                hasAuthority = true;
-            }
-        }
-        if (hasAuthority) {
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            String jwtToken = authService.generateToken(customUserDetails);
-            TokenDto token = new TokenDto();
-            token.setToken(jwtToken);
-
-            return new ResponseEntity<>(token, HttpStatus.OK);
-        }else {
-            throw new AccessDeniedException();
-        }
-    }
 }

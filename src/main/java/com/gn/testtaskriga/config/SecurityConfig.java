@@ -1,5 +1,6 @@
 package com.gn.testtaskriga.config;
 
+import com.gn.testtaskriga.advice.AccessDeniedHandlerImpl;
 import com.gn.testtaskriga.security.JwtAuthenticationFilter;
 import com.gn.testtaskriga.service.user.impl.CustomUserDetailsService;
 import com.nimbusds.jose.jwk.JWK;
@@ -28,7 +29,6 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 

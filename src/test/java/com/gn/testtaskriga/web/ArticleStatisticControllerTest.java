@@ -7,46 +7,65 @@
 
 package com.gn.testtaskriga.web;
 
-import com.gn.testtaskriga.config.SecurityConfig;
-import com.gn.testtaskriga.controller.ArticleController;
-import com.gn.testtaskriga.controller.ArticleStatisticController;
-import com.gn.testtaskriga.mapper.article.ArticleMapper;
-import com.gn.testtaskriga.service.article.ArticleService;
-import com.gn.testtaskriga.service.pagination.PaginationService;
+import com.gn.testtaskriga.dto.article.ArticleCount;
+import com.gn.testtaskriga.dto.article.ArticleDto;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithSecurityContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-@ExtendWith(SpringExtension.class)
-@WebMvcTest(controllers = {ArticleStatisticController.class})
-@MockBean(ArticleService.class)
-public class ArticleStatisticControllerTest {
+import java.util.List;
+
+public class ArticleStatisticControllerTest extends WebAbstractTest{
 
     @Autowired
-    MockMvc mvc;
+    private TestRestTemplate restTemplate;
 
     @Test
-    @WithMockUser(value = "bob", authorities = "ADMIN")
-    public void whenCallingListArticlesAuthorizedReturn_Ok() throws Exception {
-        mvc.perform(get("/api/v1/admin/statistic/article/dailyCountByWeek"))
-                .andExpect(status().isOk())
-                .andReturn();
+    public void whenCallingListArticlesAuthorizedAdminReturn_ArticleCountList() {
+        HttpHeaders headers = getAdminTokenHeader();
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<List<ArticleCount>> response = restTemplate.exchange(
+                "/api/v1/admin/statistic/article/dailyCountByWeek", HttpMethod.GET, entity, new ParameterizedTypeReference<List<ArticleCount>>() {
+                });
+
+        HttpHeaders headers1 = getTokenHeader();
+
+        HttpEntity<String> entity1 = new HttpEntity<>(headers1);
+        ResponseEntity<List<ArticleDto>> response1 = restTemplate.exchange(
+                "/api/v1/article", HttpMethod.GET, entity1, new ParameterizedTypeReference<List<ArticleDto>>() {
+                });
+
+        List<ArticleDto> body1 = response1.getBody();
+
+        List<ArticleCount> body = response.getBody();
+
+        Assertions.assertEquals(6, response.getBody().size());
     }
 
     @Test
     public void whenCallingListArticlesNotAuthorizedReturn_401() throws Exception {
-        mvc.perform(get("/api/v1/admin/statistic/article/dailyCountByWeek"))
-                .andExpect(status().isUnauthorized())
-                .andReturn();
+
+        HttpEntity<String> entity = new HttpEntity<>(new HttpHeaders());
+        ResponseEntity<List<ArticleCount>> response = restTemplate.exchange(
+                "/api/v1/admin/statistic/article/dailyCountByWeek", HttpMethod.GET, entity, new ParameterizedTypeReference<List<ArticleCount>>() {
+                });
+
+        Assertions.assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+    }
+
+    @Test
+    public void whenCallingListArticlesAuthorizedNotAdminReturn_403() throws Exception {
+        HttpHeaders headers = getTokenHeader();
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        ResponseEntity<?> response = restTemplate.exchange(
+                "/api/v1/admin/statistic/article/dailyCountByWeek", HttpMethod.GET, entity, Object.class);
+
+        Assertions.assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
     }
 }
 
